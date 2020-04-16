@@ -133,6 +133,10 @@ void pybind_visualizer(py::module &m) {
                  "Function to capture and save a depth image", "filename"_a,
                  "do_render"_a = false, "depth_scale"_a = 1000.0)
             .def("capture_depth_point_cloud",
+                 &visualization::Visualizer::CaptureFaceLandmarks,
+                 "Function to capture and save local point cloud", "dlib_sp_fn"_a,
+                 "selected_landmark_ids"_a = {}, "output_fn"_a = "")
+            .def("capture_depth_point_cloud",
                  &visualization::Visualizer::CaptureDepthPointCloud,
                  "Function to capture and save local point cloud", "filename"_a,
                  "do_render"_a = false, "convert_to_world_coordinate"_a = false)

@@ -179,6 +179,12 @@ public:
     /// Function to inform render needed to be updated.
     virtual void UpdateRender();
 
+    /// Load view status from json file
+    void CopyViewStatusFromJSONFile(std::string filename);
+
+    /// Load view status from json string
+    void CopyViewStatusFromJSONString(std::string json_string);
+
     virtual void PrintVisualizerHelp();
     virtual void UpdateWindowTitle();
     virtual void BuildUtilities();
@@ -223,6 +229,11 @@ public:
     void CaptureRenderOption(const std::string &filename = "");
     /// Function to reset view point.
     void ResetViewPoint(bool reset_bounding_box = false);
+
+    std::vector<std::array<double, 3>> CaptureFaceLandmarks(
+        const std::string &dlib_sp_fn,
+        const std::vector<int> &selected_landmark_ids = {},
+        const std::string &output_fn = "");
 
     const std::string &GetWindowName() const { return window_name_; }
 

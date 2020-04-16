@@ -2,6 +2,20 @@
 find_package(PkgConfig QUIET)
 find_package(OpenGL    QUIET)
 find_package(pybind11  QUIET)
+find_package(dlib QUIET)
+find_package(BLAS QUIET)
+find_package(LAPACK QUIET)
+# find_package(OpenCV REQUIRED)
+
+find_path(OpenCV_INCLUDE_DIRS dlib
+	PATHS 
+	$ENV{OpenCV_ROOT}
+	)
+
+# Finally the library itself
+find_library(OpenCV_LIB NAMES OpenCV)
+find_library(OpenCV_LIB_DEBUG NAMES OpenCV_d)
+set(OpenCV_LIBRARIES optimized ${OpenCV_LIB} debug ${OpenCV_LIB_DEBUG})
 
 if (PKGCONFIG_FOUND)
     pkg_search_module(FLANN           flann           QUIET)
@@ -350,6 +364,8 @@ list(APPEND 3RDPARTY_INCLUDE_DIRS
      ${fmt_INCLUDE_DIRS}
      ${k4a_INCLUDE_DIRS}
      ${poisson_INCLUDE_DIRS}
+     ${dlib_INCLUDE_DIRS}
+     ${OpenCV_INCLUDE_DIRS}
 )
 
 # set 3RDPARTY_INCLUDE_DIRS_AT_INSTALL
@@ -384,6 +400,10 @@ list(APPEND 3RDPARTY_LIBRARIES
      ${qhull_LIBRARIES}
      ${googletest_LIBRARIES}
      ${fmt_LIBRARIES}
+     ${dlib_LIBRARIES}
+     ${LAPACK_LIBRARIES}
+     ${BLAS_LIBRARIES}
+     ${OpenCV_LIBRARIES}
 )
 
 # set PRE_BUILT_3RDPARTY_LIBRARIES. When building Open3D as shared library,
